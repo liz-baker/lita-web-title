@@ -1,8 +1,6 @@
 # lita-web-title
 
-[![Build Status](https://travis-ci.org/dosman711/lita-web-title.png?branch=master)](https://travis-ci.org/dosman711/lita-web-title)
-
-TODO: Add a description of the plugin.
+A simple plugin to parse URIs in chat and return the title. Also follows 30x redirects if they are found
 
 ## Installation
 
@@ -12,10 +10,9 @@ Add lita-web-title to your Lita instance's Gemfile:
 gem "lita-web-title"
 ```
 
-## Configuration
-
-TODO: Describe any configuration attributes the plugin exposes.
-
 ## Usage
 
-TODO: Describe the plugin's features and how to use them.
+``` no-hilight
+dosman-bot > http://bit.ly/1RmnUT
+Google
+```
