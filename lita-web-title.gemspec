@@ -1,12 +1,12 @@
 Gem::Specification.new do |spec|
   spec.name          = "lita-web-title"
-  spec.version       = "0.0.1"
+  spec.version       = "1.0.0"
   spec.authors       = ["Chris Baker"]
-  spec.email         = ["chris.baker@inin.com"]
-  spec.description   = "TODO: Add a description"
-  spec.summary       = "TODO: Add a summary"
-  spec.homepage      = "TODO: Add a homepage"
-  spec.license       = "TODO: Add a license"
+  spec.email         = ["dosman711@gmail.com"]
+  spec.description   = "A Lita plugin to parse URIs and post the <title> of the page"
+  spec.summary       = "A Lita plugin to parse URI titles"
+  spec.homepage      = "https://github.com/dosman711/lita-web-title"
+  spec.license       = "MIT"
   spec.metadata      = { "lita_plugin_type" => "handler" }
 
   spec.files         = `git ls-files`.split($/)
@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "lita", ">= 4.3"
+  spec.add_runtime_dependency "nokogiri", ">= 1.6.6"
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "pry-byebug"
