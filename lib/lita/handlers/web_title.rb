@@ -3,7 +3,9 @@ require "nokogiri"
 module Lita
   module Handlers
     class WebTitle < Handler
-      route(URI.regexp(["http", "https"]), :parse_uri_request)
+      route(URI.regexp(["http", "https"]), :parse_uri_request, help: {
+        "http(s)://example.com/" => "print HTML title"
+      })
 
       def parse_uri_request(request)
         requestUri = URI::extract(request.message.body, ["http", "https"])
