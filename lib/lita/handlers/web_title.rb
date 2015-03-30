@@ -4,7 +4,7 @@ module Lita
   module Handlers
     class WebTitle < Handler
       route(URI.regexp(["http", "https"]), :parse_uri_request, help: {
-        "http(s)://example.com/" => "print HTML title"
+        "URL" => "Responds with the title of the web page at URL"
       })
 
       def parse_uri_request(request)
