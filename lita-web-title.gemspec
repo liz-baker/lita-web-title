@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "lita-web-title"
-  spec.version       = "1.0.2"
+  spec.version       = "1.0.3"
   spec.authors       = ["Chris Baker"]
   spec.email         = ["dosman711@gmail.com"]
   spec.description   = "A Lita plugin to parse URIs and post the <title> of the page"
