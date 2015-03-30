@@ -10,6 +10,7 @@ module Lita
       def parse_uri_request(request)
         requestUri = URI::extract(request.message.body, ["http", "https"])
         result = parse_uri(requestUri[0])
+        result.delete!("\n").strip!
         request.reply(result) unless result.nil?
       end
 
