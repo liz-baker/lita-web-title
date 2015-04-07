@@ -19,6 +19,11 @@ describe Lita::Handlers::WebTitle, lita_handler: true do
       expect(replies.last).to match(/Google/)
       expect(replies.last).to_not match(/yahoo/i)
     end
+
+    it 'returns nothing for URLs that are not HTML' do
+      send_command('This is the logo https://www.google.com/images/srpr/logo11w.png')
+      expect(replies.last).to be_nil
+    end
   end
 
   describe '.parse_uri' do
