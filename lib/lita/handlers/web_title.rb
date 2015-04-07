@@ -3,22 +3,22 @@ require "nokogiri"
 module Lita
   module Handlers
     class WebTitle < Handler
-      route(URI.regexp(["http", "https"]), :parse_uri_request, help: {
+      URI_PROTOCOLS = %w( http https )
+      route(URI.regexp(URI_PROTOCOLS), :parse_uri_request, help: {
         "URL" => "Responds with the title of the web page at URL"
       })
 
       def parse_uri_request(request)
-        requestUri = URI::extract(request.message.body, ["http", "https"])
-        result = parse_uri(requestUri[0])
-        result.delete!("\n").strip!
-        request.reply(result) unless result.nil?
+        requestUri = URI::extract(request.message.body, URI_PROTOCOLS).first
+        result = parse_uri(requestUri)
+        request.reply(result.delete("\n").strip)  unless result.nil?
       end
 
       def parse_uri(uriString)
         httpRequest = http.get(uriString)
         if httpRequest.status == 200 then
           page = Nokogiri::HTML(httpRequest.body)
-          page.css("title")[0].text
+          page.css("title").first.text
         elsif [300, 301, 302, 303].include? httpRequest.status then
           parse_uri httpRequest.headers["Location"]
         else
