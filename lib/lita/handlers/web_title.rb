@@ -3,6 +3,8 @@ require "nokogiri"
 module Lita
   module Handlers
     class WebTitle < Handler
+      config :ignore_patterns, types: [String, Array]
+      
       URI_PROTOCOLS = %w( http https )
       route(URI.regexp(URI_PROTOCOLS), :parse_uri_request, help: {
         "URL" => "Responds with the title of the web page at URL"
@@ -10,6 +12,11 @@ module Lita
 
       def parse_uri_request(request)
         requestUri = URI::extract(request.message.body, URI_PROTOCOLS).first
+        if config.ignore_patterns.kind_of?(String) then
+          Array(config.ignore_patterns)
+        end
+        re = Regexp.union(%r(#{config.ignore_patterns}))
+        return if requestUri.match(re)
         result = parse_uri(requestUri)
         request.reply(result.delete("\n").strip) unless result.nil?
       end
