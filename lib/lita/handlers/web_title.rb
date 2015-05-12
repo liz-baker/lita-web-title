@@ -12,7 +12,7 @@ module Lita
 
       def parse_uri_request(request)
         requestUri = URI::extract(request.message.body, URI_PROTOCOLS).first
-        if config.ignore_patterns
+        if config.ignore_patterns then
           if config.ignore_patterns.kind_of?(String) then
             Array(config.ignore_patterns)
           end
