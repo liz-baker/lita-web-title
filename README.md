@@ -10,6 +10,14 @@ Add lita-web-title to your Lita instance's Gemfile:
 gem "lita-web-title"
 ```
 
+## Configuration
+
+### Required attributes
+None
+
+### Optional attributes
+* ```ignore_patterns``` (String or Array) - A pattern or list of patterns.  When a URL matches any of these patterns, Lita will silently ignore it.  Default: ```nil```.  Example: ```config.handlers.web_title.ignore_patterns = ["rpm.newrelic.com","example.com","my(dev|stg|prd).com"]```
+
 ## Usage
 
 ``` no-hilight
