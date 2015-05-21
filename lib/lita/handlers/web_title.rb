@@ -40,8 +40,10 @@ module Lita
       end
 
       def find_title(html)
-        page = Nokogiri::HTML(html)
-        page.css("title").first.text
+        title_tag = Nokogiri::HTML(html).css('title').first
+        return if title_tag.nil?
+
+        title_tag.text
           .gsub(/(\A\s+|\s+\Z)/, '')
           .gsub(/\s+/, ' ')
       end

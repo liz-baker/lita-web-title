@@ -72,5 +72,21 @@ describe Lita::Handlers::WebTitle, lita_handler: true do
         end
       end
     end
+
+    context 'given nil' do
+      let(:body) { nil }
+
+      it 'returns nil' do
+        expect(handler.find_title(body)).to be_nil
+      end
+    end
+
+    context 'given non-html' do
+      let(:body) { 'This is not HTML.' }
+
+      it 'returns nil' do
+        expect(handler.find_title(body)).to be_nil
+      end
+    end
   end
 end
