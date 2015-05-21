@@ -63,6 +63,14 @@ describe Lita::Handlers::WebTitle, lita_handler: true do
           expect(handler.find_title(body)).to eq('space case')
         end
       end
+
+      context 'with a <title> with leading/trailing spaces' do
+        let(:title) { "\n    space    case\t" }
+
+        it 'returns the title with normalized spacing' do
+          expect(handler.find_title(body)).to eq('space case')
+        end
+      end
     end
   end
 end
