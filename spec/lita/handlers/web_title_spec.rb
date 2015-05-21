@@ -14,7 +14,7 @@ describe Lita::Handlers::WebTitle, lita_handler: true do
     it { is_expected.to route('I like http://github.com/').to(:parse_uri_request) }
   end
 
-  describe 'messages' do
+  describe 'messages', :vcr do
     it 'returns the title for a mentioned URL' do
       send_command('I search on http://google.com/ a lot.')
       expect(replies.last).to match(/Google/)
@@ -35,10 +35,9 @@ describe Lita::Handlers::WebTitle, lita_handler: true do
       send_command('I hate http://www.example.com/')
       expect(replies.last).to be_nil
     end
-
    end
 
-  describe '.parse_uri' do
+  describe '.parse_uri', :vcr do
     it 'returns the title' do
       expect(handler.parse_uri('https://google.com/'))
         .to match(/Google/)
