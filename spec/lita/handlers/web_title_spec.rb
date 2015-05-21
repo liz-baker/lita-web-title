@@ -52,7 +52,15 @@ describe Lita::Handlers::WebTitle, lita_handler: true do
         let(:title) { 'Some Title' }
 
         it 'returns the title' do
-          expect(handler.find_title(body)).to eq('Some Title')
+          expect(handler.find_title(body)).to eq(title)
+        end
+      end
+
+      context 'with a <title> with spaces in the middle' do
+        let(:title) { "space \t  case" }
+
+        it 'returns the title with normalized spacing' do
+          expect(handler.find_title(body)).to eq('space case')
         end
       end
     end
