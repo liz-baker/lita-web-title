@@ -4,7 +4,7 @@ module Lita
   module Handlers
     class WebTitle < Handler
       config :ignore_patterns, types: [String, Array]
-      
+
       URI_PROTOCOLS = %w( http https )
       route(URI.regexp(URI_PROTOCOLS), :parse_uri_request, help: {
         "URL" => "Responds with the title of the web page at URL"
@@ -28,8 +28,7 @@ module Lita
         httpRequest = http.get(uriString)
         if httpRequest.status == 200 then
           return unless httpRequest.headers['Content-Type'] =~ %r{text/x?html}
-          page = Nokogiri::HTML(httpRequest.body)
-          page.css("title").first.text
+          find_title(httpRequest.body)
         elsif [300, 301, 302, 303].include? httpRequest.status then
           parse_uri httpRequest.headers["Location"]
         else
@@ -38,6 +37,11 @@ module Lita
       rescue Exception => msg
         log.error("lita-web-title: Exception attempting to load URL: #{msg}")
         nil
+      end
+
+      def find_title(html)
+        page = Nokogiri::HTML(html)
+        page.css("title").first.text
       end
     end
 

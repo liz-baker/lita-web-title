@@ -35,12 +35,26 @@ describe Lita::Handlers::WebTitle, lita_handler: true do
       send_command('I hate http://www.example.com/')
       expect(replies.last).to be_nil
     end
-   end
+  end
 
   describe '.parse_uri', :vcr do
     it 'returns the title' do
       expect(handler.parse_uri('https://google.com/'))
         .to match(/Google/)
+    end
+  end
+
+  describe '.find_title' do
+    context 'given simple HTML' do
+      let(:body) { "<html><head><title>#{title}</title></head><p>Paragraph</p>" }
+
+      context 'with a generic <title>' do
+        let(:title) { 'Some Title' }
+
+        it 'returns the title' do
+          expect(handler.find_title(body)).to eq('Some Title')
+        end
+      end
     end
   end
 end
